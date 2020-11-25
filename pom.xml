@@ -77,6 +77,46 @@
                     <target>8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+            </plugin>
+            <!-- Download WebSphere Liberty to target directory and start it -->
+            <!-- See test/resources/arquillian.xml and server.xml for configuration -->
+            <plugin>
+                <groupId>net.wasdev.wlp.maven.plugins</groupId>
+                <artifactId>liberty-maven-plugin</artifactId>
+                <version>3.0.M1</version> <!-- plugin version -->
+                <configuration>
+                    <assemblyArtifact>
+                        <!-- Liberty server to run test against -->
+                        <groupId>io.openliberty</groupId>
+                        <artifactId>openliberty-runtime</artifactId>
+                        <version>20.0.0.12</version>
+                        <type>zip</type>
+                    </assemblyArtifact>
+                    <configFile>src/test/resources/server.xml</configFile> <!-- Used to run Arquillian-->
+                </configuration>
+                <executions>
+                    <!-- Create server during package phase for running the application AND Arquillian -->
+                    <execution>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>create-server</goal>
+                        </goals>
+                    </execution>
+                    <!-- Used for running the application, not for Arquillian-->
+                    <execution>
+                        <id>deploy-app</id>
+                        <goals>
+                            <goal>deploy</goal>
+                        </goals>
+                        <configuration>
+                            <appArchive>${project.basedir}\target\${project.build.finalName}.war</appArchive>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
