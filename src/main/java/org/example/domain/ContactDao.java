@@ -2,7 +2,6 @@ package org.example.domain;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.TreeSet;
 
 
 public class ContactDao {
@@ -21,11 +20,10 @@ public class ContactDao {
         return contacts;
     }
 
-    public ArrayList<Contact> getByQuery(String search){
+    public ArrayList<Contact> getByQuery(String search) {
         ArrayList<Contact> result = new ArrayList<>();
-        System.out.println(search);
         for (Contact contact : contacts) {
-            if (contact.allDataText().contains(search)){
+            if (contact.allDataText().contains(search)) {
                 result.add(contact);
             }
         }
@@ -48,8 +46,8 @@ public class ContactDao {
         contacts.add(added);
     }
 
-    public void deleteContact(int id) {
-        contacts.remove(getById(id));
+    public boolean deleteContact(int id) {
+        return contacts.remove(getById(id));
     }
 
     public void updateContact(int id, Contact c) {

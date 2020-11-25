@@ -38,7 +38,9 @@ public class ContactsResource {
     @DELETE
     @Path("{id}")
     public void deleteContact(@PathParam("id") int id) {
-        dao.deleteContact(id);
+        if (!dao.deleteContact(id)){
+            throw new BadRequestException("Contact does not exist!");
+        }
     }
 
     @PUT
