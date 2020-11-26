@@ -2,6 +2,8 @@ package org.example.domain;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class ContactDao {
@@ -20,14 +22,19 @@ public class ContactDao {
         return contacts;
     }
 
-    public ArrayList<Contact> getByQuery(String search) {
-        ArrayList<Contact> result = new ArrayList<>();
-        for (Contact contact : contacts) {
-            if (contact.allDataText().contains(search)) {
-                result.add(contact);
-            }
-        }
-        return result;
+    public List<Contact> getByQuery(String search) {
+        return contacts.stream()
+                .filter(c -> c.allDataText().contains(search))
+                .collect(Collectors.toList());
+
+
+//        ArrayList<Contact> result = new ArrayList<>();
+//        for (Contact contact : contacts) {
+//            if (contact.allDataText().contains(search)) {
+//                result.add(contact);
+//            }
+//        }
+//        return result;
     }
 
     public Contact getById(int id) {

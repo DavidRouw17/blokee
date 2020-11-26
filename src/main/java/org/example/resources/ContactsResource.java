@@ -6,6 +6,7 @@ import org.example.domain.ContactDao;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
+import java.util.List;
 
 @Path("/contacts")
 
@@ -15,7 +16,7 @@ public class ContactsResource {
     private static final ContactDao dao = new ContactDao();
 
     @GET
-    public ArrayList<Contact> getResult(@QueryParam("q") String q) {
+    public List<Contact> getResult(@QueryParam("q") String q) {
         if (q != null){
             return dao.getByQuery(q.toLowerCase());
         }
