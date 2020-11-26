@@ -2,7 +2,9 @@ package org.example.resources;
 
 import org.example.domain.Contact;
 import org.example.domain.ContactDao;
+import org.example.domain.ContactDaoDB;
 
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
@@ -13,7 +15,8 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class ContactsResource {
 
-    private static final ContactDao dao = new ContactDao();
+    @Inject
+    private ContactDaoDB dao;
 
     @GET
     public List<Contact> getResult(@QueryParam("q") String q) {
@@ -47,6 +50,6 @@ public class ContactsResource {
     @PUT
     @Path("{id}")
     public void updateContact(@PathParam("id") int id, Contact c) {
-        dao.updateContact(id, c);
+        dao.updateContact(c);
     }
 }

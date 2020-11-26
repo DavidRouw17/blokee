@@ -3,6 +3,7 @@ package org.example.resources;
 import org.example.App;
 import org.example.domain.Contact;
 import org.example.domain.ContactDao;
+import org.example.domain.ContactDaoDB;
 import org.example.exceptions.BadRequestException;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -43,7 +44,9 @@ public class ContactsResourceIT {
                 .addClass(ContactsResource.class)
                 .addClass(ContactDao.class)
                 .addClass(Contact.class)
-                .addClass(BadRequestException.class);
+                .addClass(BadRequestException.class)
+                .addClass(ContactDaoDB.class)
+                .addAsManifestResource("META-INF/persistence.xml", "persistence.xml");
 
         return archive;
     }
